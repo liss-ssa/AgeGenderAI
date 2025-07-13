@@ -2,7 +2,7 @@ import random
 import pandas as pd
 from pathlib import Path
 import torch
-from model import AgeGenderModel
+from model import ImprovedAgeGenderModel
 from torchvision import transforms
 import cv2
 import os
@@ -34,7 +34,7 @@ def load_model(model_path: str, device: str = 'auto') -> torch.nn.Module:
     
     try:
         # Инициализация модели
-        model = AgeGenderModel()
+        model = ImprovedAgeGenderModel()
         model.to(device)
         
         # Загрузка весов с обработкой разных случаев:
@@ -102,7 +102,7 @@ def predict(image_path: str, model: torch.nn.Module, target_size: Tuple[int, int
         logger.error(f"Ошибка при обработке {image_path}: {str(e)}")
         return None, None
 
-def analyze_predictions(data_dir: str = 'data', num_samples: int = 100) -> pd.DataFrame:
+def analyze_predictions(data_dir: str = 'data/resized_224', num_samples: int = 100) -> pd.DataFrame:
     """
     Анализирует предсказания модели на случайных изображениях из папки
     
@@ -122,7 +122,7 @@ def analyze_predictions(data_dir: str = 'data', num_samples: int = 100) -> pd.Da
     results = []
     
     # Загружаем модель
-    model = load_model('best_model.pth')
+    model = load_model('saved_models/best_model.pth')
     if model is None:
         raise RuntimeError("Не удалось загрузить модель!")
     
