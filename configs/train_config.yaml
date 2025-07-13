@@ -1,0 +1,19 @@
+# Основные параметры
+seed: 42
+epochs: 50
+batch_size: 64
+
+# Оптимизация
+lr: 0.001
+weight_decay: 0.0001
+age_weight: 0.7  # Вес для потерь возраста
+gender_weight: 0.3  # Вес для потерь пола
+
+# Пути
+data_dir: "data/resized_224"
+log_dir: "logs"
+checkpoint_dir: "checkpoints"
+
+# Коллбэки
+patience: 10  # для EarlyStopping
+checkpoint_freq: 5  # Частота сохранения чекпоинтов
